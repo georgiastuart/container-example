@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 project(random_matrix)
 
 option(USE_MPI "Compile with MPI options" OFF)
@@ -34,3 +34,5 @@ include_directories(${HDF5_INCLUDE_DIRS})
 link_libraries(Eigen3::Eigen ${HDF5_CXX_LIBRARIES} ${HDF5_LIBRARIES})
 
 add_executable(random_matrix src/main.cpp)
+
+install(TARGETS random_matrix RUNTIME)

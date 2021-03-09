@@ -1,0 +1,14 @@
+Bootstrap: docker
+From: ubuntu:20.04
+
+%files
+    src/main.cpp /src/main.cpp
+    CMakeLists.txt
+
+%post
+    ls
+    export TZ="America/Chicago"
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+    apt-get update && apt-get -y install libhdf5-dev libeigen3-dev cmake g++
+    mkdir build && cd build && cmake .. && make && make install && cd ..
+    apt-get remove -y libhdf5-dev libeigen3-dev cmake g++
