@@ -3,8 +3,6 @@ From: ubuntu:20.04
 
 %files
     src/main.cpp /src/main.cpp
-    test/test.py /test/test.py
-    test/__init__.py /test/__init__.py
     CMakeLists.txt
 
 %post
