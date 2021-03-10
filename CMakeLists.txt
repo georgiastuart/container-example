@@ -3,8 +3,6 @@ project(random_matrix)
 
 option(USE_MPI "Compile with MPI options" OFF)
 
-MESSAGE(${USE_MPI})
-
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -15,8 +13,6 @@ endif ()
 
 find_package(HDF5 REQUIRED COMPONENTS C)
 find_package(Eigen3 REQUIRED NO_MODULE)
-
-MESSAGE(${HDF5_IS_PARALLEL} ${HDF5_INCLUDE_DIRS})
 
 if (${HDF5_IS_PARALLEL} AND ${USE_MPI})
     add_compile_options(-DUSE_MPI)
