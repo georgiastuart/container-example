@@ -6,7 +6,6 @@ From: ubuntu:20.04
     CMakeLists.txt
 
 %post
-    ls
     export TZ="America/Chicago"
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
     apt-get update && apt-get -y install libeigen3-dev cmake g++ mpich libhdf5-mpich-dev
