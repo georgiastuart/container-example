@@ -27,7 +27,7 @@ endif()
 
 add_compile_options(-Wall -Wextra -pedantic -Werror)
 include_directories(${HDF5_INCLUDE_DIRS})
-link_libraries(Eigen3::Eigen ${HDF5_CXX_LIBRARIES} ${HDF5_LIBRARIES})
+link_libraries(Eigen3::Eigen ${HDF5_LIBRARIES})
 
 add_executable(random_matrix src/main.cpp)
 
