@@ -7,7 +7,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get -y install libhdf5-dev libeigen3-dev cmake g++
 
-RUN mkdir /data
 
 COPY src/main.cpp /src/main.cpp
 COPY CMakeLists.txt /CMakeLists.txt
@@ -15,3 +14,5 @@ COPY CMakeLists.txt /CMakeLists.txt
 RUN mkdir build && cd build && cmake .. && make && make install
 
 RUN apt-get remove -y libhdf5-dev libeigen3-dev cmake g++
+
+RUN mkdir /data

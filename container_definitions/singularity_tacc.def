@@ -19,6 +19,9 @@ Stage: build
     cd hdf5-1.10.7 && ./configure --enable-parallel --prefix=/hdf5 && make -j 8 && make install && cd ..
     mkdir build && cd build && cmake .. -DUSE_MPI=ON -DHDF5_ROOT=/hdf5 && make && make install && cd ..
     apt-get remove -y g++ wget
+    rm eigen-3.3.9.tar.gz && rm hdf5-1.10.7.tar.gz && rm -r eigen-3.3.9 && rm -r hdf5-1.10.7
+    echo 'export PATH="/hdf5/bin:$PATH"' >> $SINGULARITY_ENVIRONMENT
+    echo 'export PATH="/hdf5/lib:$PATH"' >> $SINGULARITY_ENVIRONMENT
 
 %labels
     Author Georgia Stuart, Computational Hydraulics Group, UT Austin
