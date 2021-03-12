@@ -11,3 +11,16 @@ From: ubuntu:20.04
     apt-get update && apt-get -y install libhdf5-dev libeigen3-dev cmake g++
     mkdir build && cd build && cmake .. && make && make install && cd ..
     apt-get remove -y libhdf5-dev libeigen3-dev cmake g++
+
+%labels
+    Author Georgia Stuart, Computational Hydraulics Group, UT Austin
+    Year 2021
+    License MIT
+
+%help
+    This is a container to demonstrate building singularity and docker containers. It contains
+    one main executable which takes one or two arguments:
+        random_matrix m n
+    creates an mxn matrix with random numbers and saves it to matrix.hdf5
+        random_matrix n
+    creates an nxn matrix with random numbers and saves it to matrix.hdf5
