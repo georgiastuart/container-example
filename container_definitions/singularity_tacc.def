@@ -1,0 +1,34 @@
+Bootstrap: docker
+From: tacc/tacc-ubuntu18-mvapich2.3-psm2
+Stage: build
+
+%files
+    src/main.cpp /src/main.cpp
+    CMakeLists.txt
+
+%post
+    which mpicc
+    export TZ="America/Chicago"
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+    apt-get update && apt-get -y install g++ wget libssl-dev
+    wget https://github.com/Kitware/CMake/releases/download/v3.19.6/cmake-3.19.6.tar.gz && tar -xzvf cmake-3.19.6.tar.gz
+    cd cmake-3.19.6/ && ./bootstrap && make -j 8 && make install && cd ..
+    wget https://gitlab.com/libeigen/eigen/-/archive/3.3.9/eigen-3.3.9.tar.gz && tar -xzvf eigen-3.3.9.tar.gz
+    cd eigen-3.3.9 && mkdir eigen_build && cd eigen_build && cmake .. && make && make install && cd ../..
+    wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.7/src/hdf5-1.10.7.tar.gz && tar -xzvf hdf5-1.10.7.tar.gz
+    cd hdf5-1.10.7 && ./configure --enable-parallel --prefix=/hdf5 && make -j 8 && make install && cd ..
+    mkdir build && cd build && cmake .. -DUSE_MPI=ON -DHDF5_ROOT=/hdf5 && make && make install && cd ..
+    apt-get remove -y g++ wget
+
+%labels
+    Author Georgia Stuart, Computational Hydraulics Group, UT Austin
+    Year 2021
+    License MIT
+
+%help
+    This is a container to demonstrate building singularity and docker containers. It contains
+    one main executable which takes one or two arguments:
+        random_matrix m n
+    creates an mxn matrix with random numbers and saves it to matrix.hdf5
+        random_matrix n
+    creates an nxn matrix with random numbers and saves it to matrix.hdf5
